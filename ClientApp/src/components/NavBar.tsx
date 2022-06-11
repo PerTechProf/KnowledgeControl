@@ -8,7 +8,7 @@ import authStore from '../stores/AuthStore';
 
 export const NavBar = observer(() => {
   return (
-    <Navbar bg="dark" variant='dark' expand="lg">
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
         <LinkContainer to="/"><Navbar.Brand>PerTechProf</Navbar.Brand></LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

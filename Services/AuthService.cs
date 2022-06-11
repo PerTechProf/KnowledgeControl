@@ -19,16 +19,14 @@ namespace KnowledgeControl.Services
         private readonly KCDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IHttpUserService _userService;
-        private readonly ILogger<AuthService> _logger;
         
-        public AuthService(KCDbContext db, 
+        public AuthService(
+            KCDbContext db, 
             UserManager<User> userManager,
-            ILogger<AuthService> logger,
             IHttpUserService userService)
         {
             _db = db;
             _userManager = userManager;
-            _logger = logger;
             _userService = userService;
         }
         public User GetCurrentUser() =>
