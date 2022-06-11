@@ -1,4 +1,4 @@
-namespace KnowledgeControl.Interfaces
+namespace KnowledgeControl.Services.Interfaces
 {
     public interface IAppSettings
     {

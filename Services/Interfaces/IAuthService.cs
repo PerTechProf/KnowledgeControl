@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using KnowledgeControl.Entities;
 using KnowledgeControl.Models;
 
-namespace KnowledgeControl.Interfaces
+namespace KnowledgeControl.Services.Interfaces
 {
     public interface IAuthService
     {

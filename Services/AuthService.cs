@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using KnowledgeControl.Interfaces;
+using KnowledgeControl.Services.Interfaces;
 
 namespace KnowledgeControl.Services
 {

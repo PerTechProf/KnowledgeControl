@@ -8,8 +8,9 @@ namespace KnowledgeControl.Entities
         public int UserId { get; set; }
         public User User { get; set; }
         public string Name { get; set;  }
-        public string TestQuestions { get; set; }
-        public string TestAnswers { get; set; }
+        public string Questions { get; set; }
+        public string Answers { get; set; }
+        
         public List<Solution> Solutions { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using KnowledgeControl.Services;
 using KnowledgeControl.Entities;
-using KnowledgeControl.Interfaces;
+using KnowledgeControl.Services.Interfaces;
 using System.Security.Claims;
 
 namespace KnowledgeControl
@@ -80,19 +80,10 @@ namespace KnowledgeControl
 
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
                             ValidateIssuer = false,
-
-                            // будет ли валидироваться потребитель токена
                             ValidateAudience = false,
-
-                            // будет ли валидироваться время существования
                             ValidateLifetime = false,
-
-                            // установка ключа безопасности
                             IssuerSigningKey = Options.SecurityKey,
-
-                            // валидация ключа безопасности
                             ValidateIssuerSigningKey = true
                         };
                     }
@@ -100,8 +91,8 @@ namespace KnowledgeControl
             
             services.AddScoped<IHttpUserService, HttpUserService>();
             services.AddScoped<IAuthService, AuthService>();
-
-
+            services.AddScoped<ITestService, TestService>();
+            services.AddScoped<IResultService, ResultService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

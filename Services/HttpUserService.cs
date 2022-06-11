@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using KnowledgeControl.Interfaces;
+using KnowledgeControl.Services.Interfaces;
 
 namespace KnowledgeControl.Services
 {

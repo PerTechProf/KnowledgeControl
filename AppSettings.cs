@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace KnowledgeControl
 {
-    public class AppSettings : Interfaces.IAppSettings
+    public class AppSettings : Services.Interfaces.IAppSettings
     {
         private readonly IConfiguration _config;
 
