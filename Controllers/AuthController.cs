@@ -44,6 +44,10 @@ namespace KnowledgeControl.Controllers
     public IEnumerable<EmployeeModel> GetEmployees() {
         return _auth.GetEmployees();
     }
+    
+    [HttpDelete("{id:int}")]
+    public Task DeleteEmployee(int id) =>
+      _auth.DeleteUser(id);
 
     [HttpPost]
     public async Task<AuthModel> Login(LoginModel model) {

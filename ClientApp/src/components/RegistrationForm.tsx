@@ -8,6 +8,8 @@ import { appRoutes } from '../pages/routes';
 import authStore from '../stores/AuthStore';
 
 export const RegistrationForm = observer(() => {
+  const navigate = useNavigate()
+  
   const [isBadStatus, setBadStatus] = useState(false);
 
   const [userName, setUserName] = useState('');
@@ -20,9 +22,12 @@ export const RegistrationForm = observer(() => {
     if (!(userName && password && email))
       return;
     try {
+      await authController.register({userName, email, password})
+      
       authStore.setUserData(
-        await authController.register({userName, email, password})
-      );
+        await authController.login({userName, password})
+      )
+      navigate('/');
     } catch {
       setBadStatus(true);
     }

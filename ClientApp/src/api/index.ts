@@ -1,3 +1,6 @@
+import auth from "./authController";
+import tests from "./testController";
+import solutions from "./solutionsController";
 export const getCookie = (name: string): string =>
   Object.fromEntries(document.cookie
     .split('; ')
@@ -5,3 +8,9 @@ export const getCookie = (name: string): string =>
       cookie.split('=')
     )
   )[name];
+
+export default {
+    auth,
+    tests,
+    solutions
+}

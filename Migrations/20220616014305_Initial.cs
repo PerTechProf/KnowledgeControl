@@ -168,16 +168,17 @@ namespace KnowledgeControl.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TestQuestions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TestAsnwers = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Questions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Answers = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tests", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tests_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Tests_AspNetUsers_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -190,11 +191,18 @@ namespace KnowledgeControl.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Answers = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TestId = table.Column<int>(type: "int", nullable: false)
+                    TestId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Solutions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Solutions_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Solutions_Tests_TestId",
                         column: x => x.TestId,
@@ -279,9 +287,14 @@ namespace KnowledgeControl.Migrations
                 column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tests_UserId",
-                table: "Tests",
+                name: "IX_Solutions_UserId",
+                table: "Solutions",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tests_CompanyId",
+                table: "Tests",
+                column: "CompanyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

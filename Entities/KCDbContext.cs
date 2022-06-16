@@ -15,11 +15,15 @@ namespace KnowledgeControl.Entities
         public DbSet<Solution> Solutions { get; set; }
         public DbSet<Result> Results { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder builder)
-        // {
-        //     base.OnModelCreating(builder);
-
-        //     builder.Entity<User>().Property(p => p.Id).UseIdentityColumn();
-        // }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+    
+            builder.Entity<Solution>()
+                .HasOne(_ => _.User)
+                .WithMany(_ => _.Solutions)
+                .HasForeignKey(_ => _.UserId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+        }
     }
 }

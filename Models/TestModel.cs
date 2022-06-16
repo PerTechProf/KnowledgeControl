@@ -1,10 +1,14 @@
 ﻿using System.Linq;
+using System.Text.Json.Serialization;
 using KnowledgeControl.Entities;
 
 namespace KnowledgeControl.Models
 {
     public class TestModel
     {
+        [JsonConstructor]
+        public TestModel(){}
+        
         public TestModel(Test test)
         {
             Id = test.Id;

@@ -91,8 +91,9 @@ namespace KnowledgeControl
             
             services.AddScoped<IHttpUserService, HttpUserService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<ITestService, TestService>();
-            services.AddScoped<IResultService, ResultService>();
+            services.AddScoped<ITestsService, TestsService>();
+            services.AddScoped<IResultsService, ResultsService>();
+            services.AddScoped<ISolutionsService, SolutionsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import authController from "../api/authController";
 import authStore from "../stores/AuthStore";
 import { appRoutes } from "./routes";
+import questionsStore from "../stores/QuestionsStore";
 
 export const Logout = observer(() => {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ export const Logout = observer(() => {
     authController.logout()
       .then(
         () => authStore.setUserData({token: '', isEmployer: false}))
-      .then(() => navigate('/login', {replace: true}));
+      .then(() => {
+        questionsStore.setQuestions([])
+        navigate('/login', {replace: true})
+      });
   })
 
   return <div></div>

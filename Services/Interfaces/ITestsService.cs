@@ -4,11 +4,12 @@ using KnowledgeControl.Models;
 
 namespace KnowledgeControl.Services.Interfaces
 {
-    public interface ITestService
+    public interface ITestsService
     {
         IEnumerable<TestViewModel> GetTests();
-        Task CreateTest(TestModel test);
+        TestModel GetTest(int id);
+        Task<TestModel> CreateTest(TestModel test);
         Task EditTest(TestModel model);
-        Task DeleteTest(TestModel model);
+        Task DeleteTest(int id);
     }
 }

@@ -15,14 +15,14 @@ const Paths = observer(() => {
       {appRoutes.public.map((route) => 
         <Route key={route.path} path={route.path} element={<route.component />} />)}
       
-      {/* {authStore.token && appRoutes.authOnly.public.map((route) => 
+      {authStore.token && appRoutes.authOnly.public.map((route) => 
         <Route key={route.path} path={route.path} element={<route.component />} />)}
       
-      {authStore.isEmployer == false &&  appRoutes.authOnly.userOnly.map((route) => 
-        <Route key={route.path} path={route.path} element={<route.component />} />)}
+      {/*{authStore.isEmployer == false &&  appRoutes.authOnly.userOnly.map((route) => */}
+      {/*  <Route key={route.path} path={route.path} element={<route.component />} />)}*/}
       
       {authStore.isEmployer && appRoutes.authOnly.employerOnly.map((route) => 
-        <Route key={route.path} path={route.path} element={<route.component />} />)} */}
+        <Route key={route.path} path={route.path} element={<route.component />} />)}
       
       {!authStore.token && 
         <Route path={appRoutes.login.path} element={<appRoutes.login.component/>} />}

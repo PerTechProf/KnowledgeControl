@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KnowledgeControl.Migrations
 {
     [DbContext(typeof(KCDbContext))]
-    [Migration("20220611154824_AnswersQuestions")]
-    partial class AnswersQuestions
+    [Migration("20220616014305_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -57,9 +57,14 @@ namespace KnowledgeControl.Migrations
                     b.Property<int>("TestId")
                         .HasColumnType("int");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Solutions");
                 });
@@ -74,18 +79,18 @@ namespace KnowledgeControl.Migrations
                     b.Property<string>("Answers")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Questions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Tests");
                 });
@@ -314,24 +319,32 @@ namespace KnowledgeControl.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("KnowledgeControl.Entities.User", "User")
+                        .WithMany("Solutions")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
                     b.Navigation("Test");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("KnowledgeControl.Entities.Test", b =>
                 {
-                    b.HasOne("KnowledgeControl.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("KnowledgeControl.Entities.User", "Company")
+                        .WithMany("Tests")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("KnowledgeControl.Entities.User", b =>
                 {
                     b.HasOne("KnowledgeControl.Entities.User", "Company")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
@@ -391,6 +404,15 @@ namespace KnowledgeControl.Migrations
             modelBuilder.Entity("KnowledgeControl.Entities.Test", b =>
                 {
                     b.Navigation("Solutions");
+                });
+
+            modelBuilder.Entity("KnowledgeControl.Entities.User", b =>
+                {
+                    b.Navigation("Solutions");
+
+                    b.Navigation("Tests");
+
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

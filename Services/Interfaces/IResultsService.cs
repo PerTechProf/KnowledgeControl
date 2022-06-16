@@ -4,9 +4,8 @@ using KnowledgeControl.Entities;
 
 namespace KnowledgeControl.Services.Interfaces
 {
-    public interface ISolutionService
+    public interface IResultsService
     {
-        Task PostSolution(Solution model);
-        IEnumerable<Solution> GetSolutions();
+        IEnumerable<Result> GetResults();
     }
 }

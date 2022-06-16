@@ -30,19 +30,23 @@ namespace KnowledgeControl.Services
             _userService = userService;
         }
         public User GetCurrentUser() =>
-            _db.Users.First(user => user.UserName == CurrentUserName);
+            _db.Users
+                .First(user => user.UserName == CurrentUserNameRequired);
+
+        public User GetCurrentUser(Func<IQueryable<User>, IEnumerable<User>> withAction) =>
+            withAction(_db.Users).First(user => user.UserName == CurrentUserNameRequired);
         
         public int CurrentUserId =>
             GetCurrentUser().Id;
         
-        private string CurrentUserName =>
-            CurrentUserNameOrNull ?? throw new InvalidOperationException("The current user is not set");
+        private string CurrentUserNameRequired =>
+            CurrentUserName ?? throw new InvalidOperationException("The current user is not set");
 
-        public string CurrentUserNameOrNull => _userService.CurrentHttpUserName;
+        public string CurrentUserName => _userService.CurrentHttpUserName;
 
-        public bool IsAuthorized => CurrentUserNameOrNull != null;
+        public bool IsAuthorized => CurrentUserName != null;
 
-        public bool IsEmployer() => GetCurrentUser().CompanyId != null;
+        public bool IsEmployer() => GetCurrentUser().CompanyId == null;
 
         public void RequireAsEmployer()
         {
@@ -121,7 +125,7 @@ namespace KnowledgeControl.Services
 
         public async Task<AuthModel> Register(RegistrationModel model)
         {
-            if (CurrentUserNameOrNull != null)
+            if (CurrentUserName != null)
                 throw new ("Не удалось зарегестрировать компанию");
 
             var user = new User
@@ -157,6 +161,19 @@ namespace KnowledgeControl.Services
             await _userManager.AddClaimAsync(user, new Claim("UserName", user.UserName));
 
             await _db.SaveChangesAsync();
+        }
+
+        public async Task DeleteUser(int id)
+        {
+            RequireAsEmployer();
+
+            var company = GetCurrentUser();
+            var user = _db.Users.First(_ => _.Id == id);
+
+            if (user.CompanyId != company.Id)
+                throw new ArgumentException("You are not supposed to do that");
+
+            await _userManager.DeleteAsync(user);
         }
 
         public IEnumerable<EmployeeModel> GetEmployees() {

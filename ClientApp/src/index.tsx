@@ -7,8 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import authStore from './stores/AuthStore';
 import axios from 'axios';
 
-axios.defaults.headers.common['Authorization'] = `Bearer ${authStore.token}`;
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
