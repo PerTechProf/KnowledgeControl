@@ -29,7 +29,13 @@ export const EmployeesList = observer(() => {
       name,
       password
     }).then(() => api.auth.getEmployees())
-      .then(data => setEmployees(data))
+      .then(data => {
+        setEmployees(data)
+        setUserName('')
+        setPassword('')
+        setEmail('')
+        setName('')
+      })
       .finally(() => setLoading(false))
   }
   
