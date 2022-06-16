@@ -39,17 +39,16 @@ namespace KnowledgeControl.Services
             var user = _authService.GetCurrentUser(_ => _
                 .AsNoTracking()
                 .Include(__ => __.Company)
-                    .ThenInclude(_ => _.Tests)
-                        .ThenInclude(_ => _.Solutions)
+                    .ThenInclude(__ => __.Tests)
+                        .ThenInclude(__ => __.Solutions)
                 .Include(__ => __.Tests)
-                .AsParallel()
             );
 
             var tests = user.CompanyId == null ? user.Tests : user.Company.Tests;
 
             var test = tests.First(_ => _.Id == id);
 
-            if (test.Solutions.FirstOrDefault(_ => _.UserId == user.Id) != null && !_authService.IsEmployer())
+            if (test.Solutions?.FirstOrDefault(_ => _.UserId == user.Id) != null && !_authService.IsEmployer())
                 throw new ArgumentException("Test already solved");
 
             if (!_authService.IsEmployer())

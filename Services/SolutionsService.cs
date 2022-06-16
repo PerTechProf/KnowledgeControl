@@ -33,7 +33,7 @@ namespace KnowledgeControl.Services
             if (test.CompanyId != user.CompanyId) 
                 throw new ArgumentException("Wrong test id");
 
-            if (test.Solutions.FirstOrDefault(_ => _.UserId == user.Id) != null)
+            if (test.Solutions?.FirstOrDefault(_ => _.UserId == user.Id) != null)
                 throw new ArgumentException("Test already solved");
 
             var solution = await _db.Solutions.AddAsync(new Solution()
