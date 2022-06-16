@@ -172,6 +172,8 @@ namespace KnowledgeControl.Services
 
             if (user.CompanyId != company.Id)
                 throw new ArgumentException("You are not supposed to do that");
+            
+            _db.Solutions.RemoveRange(_db.Solutions.Where(_ => _.UserId == user.Id));
 
             await _userManager.DeleteAsync(user);
         }

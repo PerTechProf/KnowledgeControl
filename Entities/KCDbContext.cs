@@ -23,7 +23,7 @@ namespace KnowledgeControl.Entities
                 .HasOne(_ => _.User)
                 .WithMany(_ => _.Solutions)
                 .HasForeignKey(_ => _.UserId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
