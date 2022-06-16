@@ -8,4 +8,5 @@ export interface PostSolutionModel {
 export interface SolutionModel extends PostSolutionModel {
   id: number
   test: TestModel
+  userId: number
 }

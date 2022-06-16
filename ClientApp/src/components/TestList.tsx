@@ -40,6 +40,7 @@ export const TestList = observer(() => {
         <b className="display-6">{test.name}</b>
         {authStore.isEmployer ?
           <div className="float-end">
+            <Button className="me-3" onClick={() => navigate(`/solutions/${test.id}`)}>Решения</Button>
             <Button className="me-3" onClick={() => onTest(test.id)}>Изменить</Button>
             <OverlayTrigger
               overlay={

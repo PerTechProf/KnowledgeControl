@@ -6,6 +6,7 @@ import {Tests} from "./Tests";
 import {Test} from "./Test";
 import {Employees} from "./Employees";
 import {NewTest} from "./NewTest";
+import {TestSolutions} from "./TestSolutions";
 
 export const appRoutes = {
   public: [
@@ -36,6 +37,10 @@ export const appRoutes = {
       {
         path: "/employees",
         component: Employees
+      },
+      {
+        path: "/solutions/:testId",
+        component: TestSolutions
       }
     ]
   },

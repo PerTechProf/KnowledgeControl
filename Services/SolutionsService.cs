@@ -72,10 +72,14 @@ namespace KnowledgeControl.Services
             
             var user = _authService.GetCurrentUser();
 
+            var test = _db.Tests.AsNoTracking()
+                .First(_ => _.Id == testId);
+
+            if (test.CompanyId != user.Id)
+                return null;
+
             return _db.Solutions
                 .AsNoTracking()
-                .Include(_ => _.Test)
-                .Where(_ => _.Test.CompanyId == user.Id)
                 .Where(_ => _.TestId == testId);
         }
     }
