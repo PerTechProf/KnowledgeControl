@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using KnowledgeControl.Entities;
+using KnowledgeControl.Models;
 using KnowledgeControl.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,8 +18,8 @@ namespace KnowledgeControl.Controllers
             _resultsService = resultsService;
         }
 
-        [HttpGet]
-        public IEnumerable<Result> GetResults() =>
-            _resultsService.GetResults();
+        [HttpGet("{testId:int}")]
+        public CertificateModel GetCertificate(int testId) =>
+            _resultsService.GetCertificate(testId);
     }
 }

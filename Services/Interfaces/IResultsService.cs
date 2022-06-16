@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using KnowledgeControl.Entities;
+using KnowledgeControl.Models;
 
 namespace KnowledgeControl.Services.Interfaces
 {
     public interface IResultsService
     {
-        IEnumerable<Result> GetResults();
+        CertificateModel GetCertificate(int testId);
     }
 }

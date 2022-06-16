@@ -7,6 +7,7 @@ namespace KnowledgeControl.Services.Interfaces
     public interface ITestsService
     {
         IEnumerable<TestViewModel> GetTests();
+        IEnumerable<TestViewModel> GetSolvedTests();
         TestModel GetTest(int id);
         Task<TestModel> CreateTest(TestModel test);
         Task EditTest(TestModel model);

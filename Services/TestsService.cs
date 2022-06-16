@@ -33,6 +33,17 @@ namespace KnowledgeControl.Services
                 .Where((test) => test.Solutions.FirstOrDefault(_ => _.UserId == user.Id) == null || user.CompanyId == null)
                 .Select(test => new TestViewModel(test));
         }
+        
+        public IEnumerable<TestViewModel> GetSolvedTests()
+        {
+            var user = _authService.GetCurrentUser();
+
+            return _db.Tests.Include(_ => _.Company)
+                .Include(_ => _.Solutions)
+                .Where((test) => test.CompanyId == user.CompanyId)
+                .Where((test) => test.Solutions.FirstOrDefault(_ => _.UserId == user.Id) != null)
+                .Select(test => new TestViewModel(test));
+        }
 
         public TestModel GetTest(int id)
         {

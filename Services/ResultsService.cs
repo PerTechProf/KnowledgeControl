@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using KnowledgeControl.Entities;
+using KnowledgeControl.Models;
 using KnowledgeControl.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,13 +25,27 @@ namespace KnowledgeControl.Services
             _authService = authService;
         }
 
-        public IEnumerable<Result> GetResults()
+        public CertificateModel GetCertificate(int testId)
         {
             var user = _authService.GetCurrentUser();
-            
-            return _db.Results.AsNoTracking()
-                .Include(_ => _.Solution)
-                .Where(_ => _.Solution.UserId == user.Id);
+
+            var test = _db.Tests.First(_ => _.Id == testId);
+
+            if (test.CompanyId != user.CompanyId)
+                throw new ArgumentException("Wrong test id");
+
+            var solution = _db.Solutions.First(_ => _.TestId == test.Id && _.UserId == user.Id);
+
+            var result = _db.Results.First(_ => _.SolutionId == solution.Id);
+
+            return new CertificateModel()
+            {
+                Id = result.Id,
+                Percentage = (double)result.CorrectCount / result.Count,
+                SolutionId = solution.Id,
+                PersonName = user.Name,
+                TestName = test.Name
+            };
         }
     }
 }

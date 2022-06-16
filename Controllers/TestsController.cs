@@ -22,6 +22,11 @@ namespace KnowledgeControl.Controllers
         public IEnumerable<TestViewModel> GetTests() =>
             _testsService.GetTests();
 
+        [Route("solved/")]
+        [HttpGet]
+        public IEnumerable<TestViewModel> GetSolvedTests() =>
+            _testsService.GetSolvedTests();
+
         [HttpGet("{id:int}")]
         public TestModel GetTest(int id) =>
             _testsService.GetTest(id);

@@ -7,6 +7,8 @@ import {Test} from "./Test";
 import {Employees} from "./Employees";
 import {NewTest} from "./NewTest";
 import {TestSolutions} from "./TestSolutions";
+import {CertificateView} from "./CertificateView";
+import {Certificates} from "./Certificates";
 
 export const appRoutes = {
   public: [
@@ -27,7 +29,14 @@ export const appRoutes = {
       }
     ],
     userOnly: [
-      
+      {
+        path: "/certificates",
+        component: Certificates
+      },
+      {
+        path: "/certificates/:testId",
+        component: CertificateView
+      }
     ],
     employerOnly: [
       {

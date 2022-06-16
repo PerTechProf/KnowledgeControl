@@ -1,6 +1,8 @@
 import auth from "./authController";
 import tests from "./testController";
 import solutions from "./solutionsController";
+import results from "./resultsController";
+
 export const getCookie = (name: string): string =>
   Object.fromEntries(document.cookie
     .split('; ')
@@ -12,5 +14,6 @@ export const getCookie = (name: string): string =>
 export default {
     auth,
     tests,
-    solutions
+    solutions,
+    results
 }

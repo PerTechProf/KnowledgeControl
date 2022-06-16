@@ -17,9 +17,12 @@ export const NavBar = observer(() => {
             <>
               <Nav className="me-auto">
                 <LinkContainer to={'/tests'}><Nav.Link>Тесты</Nav.Link></LinkContainer>
-                  {authStore.isEmployer && <>
-                      <LinkContainer to={'/employees'}><Nav.Link>Сотрудники</Nav.Link></LinkContainer>
-                  </>}
+                {authStore.isEmployer && <>
+                    <LinkContainer to={'/employees'}><Nav.Link>Сотрудники</Nav.Link></LinkContainer>
+                </>}
+                {!authStore.isEmployer && <>
+                    <LinkContainer to={'/certificates'}><Nav.Link>Сертификаты</Nav.Link></LinkContainer>
+                </>}
               </Nav>
               <Nav>
                 <LinkContainer to={appRoutes.logout.path}><Nav.Link>Выйти</Nav.Link></LinkContainer>
