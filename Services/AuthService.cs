@@ -151,6 +151,10 @@ namespace KnowledgeControl.Services
             RequireAsEmployer();
 
             var user = _db.Users.First(_ => _.Id == model.Id);
+            
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            
+            await _userManager.ResetPasswordAsync(user, token, model.Password);
 
             await _userManager.RemoveClaimAsync(user, new Claim("UserName", user.UserName));
 

@@ -9,6 +9,7 @@ import {NewTest} from "./NewTest";
 import {TestSolutions} from "./TestSolutions";
 import {CertificateView} from "./CertificateView";
 import {Certificates} from "./Certificates";
+import {EditEmployee} from "./EditEmployee";
 
 export const appRoutes = {
   public: [
@@ -50,6 +51,10 @@ export const appRoutes = {
       {
         path: "/solutions/:testId",
         component: TestSolutions
+      },
+      {
+        path: "/employees/:userId",
+        component: EditEmployee
       }
     ]
   },

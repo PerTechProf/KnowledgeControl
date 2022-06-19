@@ -4,8 +4,11 @@ import {Button, Card, Col, Container, Form, Row, Spinner} from "react-bootstrap"
 import authStore from "../stores/AuthStore";
 import api from "../api";
 import {EmployeeModel} from "../models/EmployeeModel";
+import {useNavigate} from "react-router-dom";
 
 export const EmployeesList = observer(() => {
+  const navigate = useNavigate()
+  
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
@@ -125,7 +128,7 @@ export const EmployeesList = observer(() => {
                 <Card.Text>
                   {employee.email}
                 </Card.Text>
-                {/*<Button variant="success">Изменить</Button>*/}
+                <Button onClick={() => navigate(`/employees/${employee.id}`)} variant="success">Изменить</Button>
                 <Button onClick={() => onDelete(employee.id)} className="ms-2" variant="danger">Удалить</Button>
               </Card.Body>
             </Card>

@@ -34,15 +34,20 @@ namespace KnowledgeControl.Controllers
       await _auth.RegisterEmployee(model);
     }
 
-    [HttpPost]
+    [HttpPut]
     public async Task EditEmployee(EditEmployeeModel model)
     {
       await _auth.EditUser(model);
     }
 
     [HttpGet]
-    public IEnumerable<EmployeeModel> GetEmployees() {
+    public IEnumerable<EmployeeModel> Employees() {
         return _auth.GetEmployees();
+    }
+    
+    [HttpGet("{id:int}")]
+    public EmployeeModel Employees(int id) {
+      return _auth.GetEmployees().First(_ => _.Id == id);
     }
     
     [HttpDelete("{id:int}")]
