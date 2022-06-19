@@ -34,31 +34,33 @@ export const TestList = observer(() => {
       .then(data => setTests(data))
   }, [])
 
-  return <Container className={authStore.isEmployer ? "w-50" : "w-25"}>
-    <Row>
-      {tests?.map(test => (<Col key={test.id} md={12}>
-        <b className="display-6">{test.name}</b>
-        {authStore.isEmployer ?
-          <div className="float-end">
-            <Button className="me-3" onClick={() => navigate(`/solutions/${test.id}`)}>Решения</Button>
-            <Button className="me-3" onClick={() => onTest(test.id)}>Изменить</Button>
-            <OverlayTrigger
-              overlay={
-                <Tooltip>
-                  Удалить
-                </Tooltip>
-              }
-              placement={"right"}
-            >
-              <CloseButton onClick={() => onDelete(test.id)}/>
-            </OverlayTrigger>
-          </div> :
-          <>
-            <Button className="float-end" onClick={() => onTest(test.id)}>Пройти</Button>
-          </>
-        }
-      </Col>)) ?? <Spinner animation="border"/>}
-      {authStore.isEmployer && <Button className="mt-5" onClick={addTest}>Добавить тест</Button>}
-    </Row>
+  return <Container className={authStore.isEmployer ? "w-75" : "w-25"}>
+    {tests?.map(test => (<Row className="mt-3 border p-3" key={test.id}>
+      <Col md={8}><b>{test.name}</b></Col>
+      {authStore.isEmployer ?
+        <Col md={4}>
+          <Row>
+            <Col><Button className="me-1" onClick={() => navigate(`/solutions/${test.id}`)}>Решения</Button></Col>
+            <Col><Button className="me-1" onClick={() => onTest(test.id)}>Изменить</Button></Col>
+            <Col>
+              <OverlayTrigger
+                overlay={
+                  <Tooltip>
+                    Удалить
+                  </Tooltip>
+                }
+                placement={"right"}
+              >
+                <CloseButton onClick={() => onDelete(test.id)}/>
+              </OverlayTrigger>
+            </Col>
+          </Row>
+        </Col> :
+        <Col md={4}>
+          <Button onClick={() => onTest(test.id)}>Пройти</Button>
+        </Col>
+      }
+    </Row>)) ?? <Spinner animation="border"/>}
+    <Row>{authStore.isEmployer && <Button className="mt-5" onClick={addTest}>Добавить тест</Button>}</Row>
   </Container>
 })
